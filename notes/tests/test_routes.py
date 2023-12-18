@@ -11,24 +11,16 @@ User = get_user_model()
 
 class TestRoutes(TestCase):
     @classmethod
-    def setUpTestData(cls) -> None:
+    def setUpTestData(cls):
         cls.author = User.objects.create(username='author')
         cls.reader = User.objects.create(username='reader')
 
         cls.note = Note.objects.create(
-            title='title',
-            text='text',
-            slug='title',
-            author=cls.author
+            title='title', text='text', slug='title', author=cls.author
         )
 
     def test_pages_availability(self):
-        names = (
-            'notes:home',
-            'users:login',
-            'users:logout',
-            'users:signup'
-        )
+        names = ('notes:home', 'users:login', 'users:logout', 'users:signup')
         for name in names:
             url = reverse(name)
             response = self.client.get(url)

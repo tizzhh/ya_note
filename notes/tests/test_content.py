@@ -9,7 +9,7 @@ class TestHomePage(TestCase):
     HOME_URL = reverse('notes:home')
 
     @classmethod
-    def setUpTestData(cls) -> None:
+    def setUpTestData(cls):
         cls.user = User.objects.create(username='user')
 
     def test_auth_client_has_add_button(self):
