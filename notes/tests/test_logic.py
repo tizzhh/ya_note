@@ -30,8 +30,11 @@ class TestNoteCreation(TestCase):
         }
 
     def test_anon_user_cant_create_note(self):
-        self.client.post(self.url)
+        response = self.client.post(self.url)
         notes_count = Note.objects.count()
+        login_url = reverse('users:login')
+        expected_url = f'{login_url}?next={self.url}'
+        self.assertRedirects(response, expected_url)
         self.assertEqual(notes_count, 0)
 
     def test_auth_user_can_create_note(self):
