@@ -19,8 +19,26 @@ class TestRoutes(TestCase):
             title='title', text='text', slug='title', author=cls.author
         )
 
-    def test_pages_availability(self):
-        names = ('notes:home', 'users:login', 'users:logout', 'users:signup')
+    def test_pages_availability_for_anon_user(self):
+        names = (
+            'notes:home',
+            'users:login',
+            'users:logout',
+            'users:signup'
+        )
+
+        for name in names:
+            url = reverse(name)
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_pages_availability_for_auth_user(self):
+        names = (
+            'notes:list',
+            'notes:success',
+            'notes:add'
+        )
+        self.client.force_login(self.author)
         for name in names:
             url = reverse(name)
             response = self.client.get(url)
