@@ -2,10 +2,11 @@ from http import HTTPStatus
 
 import pytest
 from django.urls import reverse
-from notes.forms import WARNING
-from notes.models import Note
 from pytest_django.asserts import assertFormError, assertRedirects
 from pytils.translit import slugify
+
+from notes.forms import WARNING
+from notes.models import Note
 
 
 def test_user_can_create_note(author_client, author, form_data):
